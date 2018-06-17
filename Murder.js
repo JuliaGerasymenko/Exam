@@ -1,21 +1,7 @@
 'use strict'
-// const  promise = new Promise((resolve, reject) => {
-//   ////async code
-//
-// });
-//
-// promise
-//   .then(
-//     result =>
-//     error => console.log(error.message)
-//   );
-// const async = require('async');
-//
-
-
 
 let mas = ["Bill", "Lucy", "Poll", "Ken", "Jen"];
-/////////////////Последовательно выполняется////////////////
+/////////////////Промисы последовательно выполняются////////////////
 const Kill = mas => Promise.resolve(mas.shift());
 async function threaten2(mas) {
   for (let i = 0; i < 1; i++) {
@@ -29,14 +15,16 @@ async function threaten2(mas) {
   }
   return mas;
 };
-threaten2(mas).then((resolve) => { console.log("They are next -> " + resolve.join(' -> '));});
+threaten2(mas).then(
+  (resolve) => { 
+    console.log("They are next -> " + resolve.join(' -> '));
+  });
 
 //////////// через 2 дня не выплатят выкуп////////////
 const noPay = mas => new Promise((resolve, reject) => {
   if (!mas.length) reject('All died');
   setTimeout(resolve, 100, mas.shift());
 });
-
 
 //промисы выполняются последовательно
 async function threaten(mas, murderMap) {
@@ -46,6 +34,7 @@ async function threaten(mas, murderMap) {
   return mas;
 }
 threaten(mas);
+
 /////////////////// Without await//////////////////////
 // let killBill;
 // async function threatened (mas){
@@ -56,9 +45,8 @@ threaten(mas);
 //     }, 1000);
 //     }).then((result) => { killBill = resolve;});
 // }
-//2 промиса разрешаются паралельно
-//одновременно получить результат от нескольких вызовов
 
+//2 промиса разрешаются паралельно
 const first = new Promise((resolve, reject) => {
   setTimeout(resolve, 1000, "Dan");
 });
@@ -70,7 +58,6 @@ const second = new Promise((resolve, reject) => {
 const third = new Promise((resolve, reject) => {
   setTimeout(resolve, 1000, "Tan");
 });
-// threaten(mas);
 
 Promise.all([first, second, third]).then(console.log).catch(console.log);
 
